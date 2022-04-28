@@ -1,5 +1,5 @@
 <template>
-  <select :value="modelValue" @change="onChangeSelect">
+  <select class="select" :value="modelValue" @change="onChangeSelect">
     <option disabled value="">Choose</option>
     <option
       v-for="option in options"
@@ -28,5 +28,11 @@ export default {
 </script>
 
 <style scoped>
-
+.select {
+  border: 1px solid lightgray;
+  outline-color: teal;
+  color: gray;
+  padding: 10px;
+  border-radius: 3px;
+}
 </style>

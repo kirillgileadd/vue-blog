@@ -38,7 +38,7 @@ export default {
 
 .post-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 30px
 }
 

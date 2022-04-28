@@ -1,22 +1,40 @@
 <template>
   <div class="app-container container">
-    <blog-header v-model:show="modalVisible"/>
-    <styled-select v-model="selectionSort" :options="selectOptions"/>
-    <blog-list v-if="!postsLoading" @removePost="removePost" :posts="changeSortValue"/>
-    <styled-modal v-model:show="modalVisible">
-      <blog-form @cratePost="createPost"/>
-    </styled-modal>
-    <div class="pagination">
-      <div
-          class="page"
-          :class="{'active': pageNumber === page}"
-          v-for="pageNumber in totalPages"
-          :key="pageNumber"
-          @click="changeCurrentPage(pageNumber)"
-      >
-        {{pageNumber}}
+    <blog-header
+        v-model:show="modalVisible"
+    />
+    <div class="blog-btns">
+      <styled-button
+          variant="primary"
+          @click="showModal"
+      >New Post
+      </styled-button>
+      <div class="blog-filter">
+        <styled-input
+            placeholder="Search..."
+            class="blog-filter__input"
+            v-model="searchValue"
+        />
+        <styled-select
+            v-model="selectionSort"
+            :options="selectOptions"
+        />
       </div>
     </div>
+    <blog-list
+        v-if="!postsLoading"
+        @removePost="removePost"
+        :posts="filteredAndSortedPosts"
+    />
+    <styled-pagination
+        v-model:page="page"
+        :total-pages="totalPages"
+    />
+    <styled-modal
+        v-model:show="modalVisible"
+    >
+      <blog-form @cratePost="createPost"/>
+    </styled-modal>
   </div>
 </template>
 
@@ -25,18 +43,18 @@ import BlogHeader from "@/components/BlogHeader";
 import BlogItem from "@/components/BlogItem";
 import BlogList from "@/components/BlogList";
 import BlogForm from "@/components/BlogForm";
-import StyledModal from "@/components/UI/StyledModal";
 import axios from "axios";
-import StyledSelect from "@/components/UI/StyledSelect";
+
 
 export default {
-  components: {StyledSelect, BlogForm, BlogList, BlogItem, BlogHeader, StyledModal},
+  components: {BlogForm, BlogList, BlogItem, BlogHeader},
   data() {
     return {
       posts: [],
       modalVisible: false,
       postsLoading: false,
       selectionSort: '',
+      searchValue: '',
       page: 1,
       limit: 10,
       totalPages: 0,
@@ -48,14 +66,14 @@ export default {
   },
   methods: {
     createPost(post) {
-      this.posts.push(post)
+      this.posts.unshift(post)
       this.modalVisible = false
     },
     removePost(post) {
       this.posts = this.posts.filter(el => el.id !== post.id)
     },
-    changeCurrentPage (number) {
-      this.page = number
+    showModal() {
+      this.modalVisible = true
     },
     async fetchPosts() {
       try {
@@ -83,6 +101,9 @@ export default {
       return [...this.posts].sort((post1, post2) => {
         return post1[this.selectionSort]?.localeCompare(post2[this.selectionSort])
       })
+    },
+    filteredAndSortedPosts() {
+      return this.changeSortValue.filter(post => post.title.toLowerCase().includes(this.searchValue.toLowerCase()))
     }
   },
   watch: {
@@ -119,28 +140,27 @@ body {
 }
 
 .app-container {
-  padding: 15px 0;
+  padding: 15px;
   min-height: 100vh;
 }
 
-.pagination {
-  display: flex;
-}
 
-.page {
-  border-radius: 30px;
-  border: 1px solid teal;
-  text-align: center;
-  margin-left: 5px;
-  width: 35px;
-  height: 35px;
-  padding: 5px;
-  font-size: 15px;
-  cursor: pointer;
-  &.active {
-    background-color: teal;
-    color: #ffffff;
+.blog-btns {
+  button {
+    margin-bottom: 15px;
   }
 }
+
+.blog-filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  &__input {
+    width: 100%;
+    margin-right: 10px;
+  }
+}
+
 
 </style>

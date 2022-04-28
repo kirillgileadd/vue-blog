@@ -2,12 +2,12 @@
   <div class="blog-item">
     <img class="blog-item__img" :src="img" alt="">
     <div class="blog-item__content">
-      <div>
+      <div class="blog-item__info">
         <p>{{id}}</p>
         <h4 class="blog-item__title">{{title}}</h4>
-        <p>{{body}}</p>
+        <p class="blog-item__text"> {{body}}</p>
       </div>
-      <styled-button @click="$emit('removePost', id)">
+      <styled-button class="blog-item__btn" @click="$emit('removePost', id)">
         Delete
       </styled-button>
     </div>
@@ -22,7 +22,7 @@ export default {
   props: {
     img: {
       type: String,
-      default: 'https://paulvanderlaken.files.wordpress.com/2020/02/post-box-11.jpg'
+      default: 'https://source.unsplash.com/random/400*400'
     },
     id: Number,
     title: String,
@@ -33,21 +33,40 @@ export default {
 
 <style scoped lang="scss">
   .blog-item {
+    width: 100%;
+    height: 100%;
     border: 1px solid lightgray;
     border-radius: 20px;
     overflow: hidden;
     &__content {
-      height: 30%;
+      width: 100%;
       padding: 10px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
     }
     &__img {
+      height: 280px;
+      width: 100%;
       object-fit: cover;
       object-position: center;
-      width: 100%;
-      height: 70%;
+    }
+    &__info {
+      margin-right: 15px;
+    }
+    &__title {
+      text-overflow: ellipsis; /* Добавляем многоточие */
+    }
+    &__text {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      line-height: 1.3em;
+      height: 3.9em;
+    }
+    &__btn {
+      align-self: flex-end;
     }
   }
 </style>

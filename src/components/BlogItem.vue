@@ -3,6 +3,7 @@
     <img class="blog-item__img" :src="img" alt="">
     <div class="blog-item__content">
       <div>
+        <p>{{id}}</p>
         <h4 class="blog-item__title">{{title}}</h4>
         <p>{{body}}</p>
       </div>

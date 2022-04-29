@@ -2,7 +2,7 @@
   <div class="form__wrapper" @submit.prevent>
     <h3>Add new post</h3>
     <form class="form" action="">
-      <styled-input placeholder="title..." v-model="post.title"/>
+      <styled-input v-focus placeholder="title..." v-model="post.title"/>
       <styled-input placeholder="body..." v-model="post.body"/>
       <styled-button @click="addPost">Add post</styled-button>
     </form>

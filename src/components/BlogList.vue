@@ -38,7 +38,7 @@ export default {
 
 .post-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 30px
 }
 
@@ -46,7 +46,7 @@ export default {
   opacity: 0;
   transform: translateY(30px);
 }
-.post-list-leave-active {
-  position: absolute;
-}
+/*.post-list-leave-active {*/
+/*  position: absolute;*/
+/*}*/
 </style>

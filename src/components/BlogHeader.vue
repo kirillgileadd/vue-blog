@@ -23,6 +23,7 @@ export default {
 
 <style scoped lang="scss">
 .header {
+  box-shadow: 0 3px 16px 0 rgba(34, 60, 80, 0.4);
   background-color: teal;
   display: flex;
   position: fixed;
@@ -37,8 +38,9 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
+
   &__title {
-    color:#fff;
+    color: #fff;
     cursor: pointer;
   }
 }

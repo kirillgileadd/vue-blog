@@ -44,6 +44,7 @@ body {
 .app-container {
   padding: 15px;
   padding-top: 75px;
+  overflow-x: hidden;
   min-height: 100vh;
 }
 

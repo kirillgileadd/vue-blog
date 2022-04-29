@@ -1,6 +1,13 @@
 <template>
   <header class="header">
-    <h3>Vue Blog</h3>
+    <div class="container">
+      <div class="header__inner">
+        <h3 class="header__title" @click="$router.push('/')">Vue Blog</h3>
+        <div class="header__btns">
+          <styled-button @click="$router.push('/about')" variant="secondary">About</styled-button>
+        </div>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -14,11 +21,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .header {
+  background-color: teal;
   display: flex;
+  position: fixed;
+  width: 100%;
   padding: 15px 0;
+  height: 65px;
   justify-content: space-between;
   align-items: center;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title {
+    color:#fff;
+    cursor: pointer;
+  }
 }
 </style>

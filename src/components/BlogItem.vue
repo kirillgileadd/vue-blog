@@ -3,13 +3,17 @@
     <img class="blog-item__img" :src="img" alt="">
     <div class="blog-item__content">
       <div class="blog-item__info">
-        <p>{{id}}</p>
         <h4 class="blog-item__title">{{title}}</h4>
         <p class="blog-item__text"> {{body}}</p>
       </div>
-      <styled-button class="blog-item__btn" @click="$emit('removePost', id)">
-        Delete
-      </styled-button>
+      <div class="blog-item__btns">
+        <styled-button style="margin-bottom: 10px" @click="$router.push(`/${id}`)">
+          Open
+        </styled-button>
+        <styled-button @click="$emit('removePost', id)">
+          Delete
+        </styled-button>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +58,11 @@ export default {
     &__info {
       margin-right: 15px;
     }
+    &__btns {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
     &__title {
       text-overflow: ellipsis; /* Добавляем многоточие */
     }
@@ -64,9 +73,6 @@ export default {
       -webkit-box-orient: vertical;
       line-height: 1.3em;
       height: 3.9em;
-    }
-    &__btn {
-      align-self: flex-end;
     }
   }
 </style>

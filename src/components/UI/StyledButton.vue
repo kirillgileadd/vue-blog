@@ -11,7 +11,7 @@ export default {
     variant: {
       type: String,
       validators: value =>
-          ['primary', 'secondary', 'warning', 'danger'].includes(value),
+          ['primary', 'secondary'].includes(value),
     },
   }
 }
@@ -28,6 +28,9 @@ export default {
     &.primary {
       color: #fff;
       background-color: teal;
+    }
+    &.secondary {
+      background-color: #ffffff;
     }
   }
 </style>

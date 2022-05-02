@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="modal" @click="$emit('update:show', false)">
+  <div v-if="show" class="modal" @click="hideModal">
     <div @click.stop class="modal__content">
       <slot></slot>
     </div>
@@ -7,14 +7,11 @@
 </template>
 
 <script>
+import toggleMixin from "@/components/mixins/toggleMixin";
+
 export default {
   name: "styled-modal",
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    }
-  }
+  mixins: [toggleMixin]
 }
 </script>
 

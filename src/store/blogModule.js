@@ -85,6 +85,13 @@ export const postModule = {
             } catch (e) {
                 console.log(e);
             }
+        },
+        async createPost({state, commit}) {
+            try {
+
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     namespaced: true

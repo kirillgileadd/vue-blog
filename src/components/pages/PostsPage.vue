@@ -25,9 +25,10 @@
         @removePost="removePost"
         :posts="posts"
     />
-    <div v-intersection="loadMorePosts" ref="observer" class="observer">
+    <div v-else>
       <styled-loader/>
     </div>
+    <div v-intersection="loadMorePosts" ref="observer" class="observer"></div>
   </div>
   <styled-modal
       v-model:show="modalVisible"
@@ -41,7 +42,7 @@ import BlogHeader from "@/components/BlogHeader";
 import BlogItem from "@/components/BlogItem";
 import BlogList from "@/components/BlogList";
 import BlogForm from "@/components/BlogForm";
-import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
+import {mapActions, mapMutations, mapState} from 'vuex'
 
 
 export default {
@@ -62,11 +63,10 @@ export default {
       loadMorePosts: 'post/loadMorePosts'
     }),
     createPost(post) {
-      this.posts.unshift(post)
-      this.modalVisible = false
+      // post request
     },
     removePost(post) {
-      this.posts = this.posts.filter(el => el.id !== post.id)
+      // delete request
     },
     showModal() {
       this.modalVisible = true

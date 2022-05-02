@@ -5,6 +5,7 @@
         <h3 class="header__title" @click="$router.push('/')">Vue Blog</h3>
         <div class="header__btns">
           <styled-button @click="$router.push('/about')" variant="secondary">About</styled-button>
+          <styled-button @click="$router.push('/composition')" variant="secondary">Composition API</styled-button>
         </div>
       </div>
     </div>

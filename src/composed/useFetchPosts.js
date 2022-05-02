@@ -1,12 +1,11 @@
 import {onMounted, ref, watch} from "vue";
 import axios from "axios";
 
-export function useFetchPosts() {
+export function useFetchPosts(debounceValue) {
     const posts = ref([])
     const postsLoading = ref(false)
     const totalPages = ref(0)
     const selectionSort = ref('')
-    const searchValue = ref('')
     const page = ref(1)
     const limit = (10)
     const fetching = async () => {
@@ -17,7 +16,7 @@ export function useFetchPosts() {
                 params: {
                     _limit: limit.value,
                     _page: page.value,
-                    q: searchValue.value,
+                    q: debounceValue.value.trim(),
                     _sort: selectionSort.value,
                     _order: 'asc'
                 }
@@ -37,7 +36,7 @@ export function useFetchPosts() {
                 params: {
                     _limit: limit.value,
                     _page: page.value,
-                    q: searchValue.value,
+                    q: debounceValue.value.trim(),
                     _sort: selectionSort.value,
                     _order: 'asc'
                 }
@@ -48,27 +47,9 @@ export function useFetchPosts() {
             console.log(e);
         }
     }
-    // const createPost = async (post) => {
-    //     try {
-    //         const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {...post})
-    //         posts.value = [response.data, ...posts.value]
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-    // const deletePost = async (post) => {
-    //     try {
-    //         const response = await axios.delete(`https://jsonplaceholder.typicode.com/posts/${post.id}`)
-    //         if(response.status === 200) {
-    //             posts.value = posts.value.filter(item => item?.id !== post.id)
-    //         }
-    //     } catch (e) {
-    //
-    //     }
-    // }
 
     onMounted(fetching)
-    watch([selectionSort, searchValue], fetching)
+    watch([selectionSort, debounceValue], fetching)
 
     return {
         posts,
@@ -77,7 +58,6 @@ export function useFetchPosts() {
         limit,
         page,
         selectionSort,
-        searchValue,
         loadMorePosts
     }
 }

@@ -18,7 +18,7 @@
       />
     </div>
   </div>
-  <div style="min-height: calc(100vh - 260px)">
+  <div style="min-height: 100vh">
     <div>
       <blog-list
           v-if="!postsLoading"
@@ -41,9 +41,10 @@ import BlogHeader from "@/components/BlogHeader";
 import BlogItem from "@/components/BlogItem";
 import BlogList from "@/components/BlogList";
 import BlogForm from "@/components/BlogForm";
-import {useFetchPosts} from "@/hooks/useFetchPosts";
+import {useFetchPosts} from "@/composed/useFetchPosts";
 import StyledLoader from "@/components/UI/StyledLoader";
-import {useUpdatePost} from "@/hooks/useUpdatePost";
+import {useUpdatePost} from "@/composed/useUpdatePost";
+import useDebouncedRef from "@/composed/useDebounce";
 
 
 export default {
@@ -59,8 +60,10 @@ export default {
     }
   },
   setup(props) {
-    const {posts, totalPages, postsLoading, selectionSort, searchValue, loadMorePosts } = useFetchPosts();
+    const searchValue = useDebouncedRef('', 400)
+    const {posts, totalPages, postsLoading, selectionSort, loadMorePosts } = useFetchPosts(searchValue);
     const { createPost, deletePost } = useUpdatePost(posts, postsLoading);
+
     return {
       loadMorePosts,
       createPost,

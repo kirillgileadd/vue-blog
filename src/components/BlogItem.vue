@@ -31,6 +31,8 @@ export default {
     id: Number,
     title: String,
     body: String,
+    postLoading: Boolean,
+    isFavourite: Boolean,
   }
 }
 </script>

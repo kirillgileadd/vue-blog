@@ -24,6 +24,7 @@
           v-if="!postsLoading"
           @removePost="removePost"
           :posts="posts"
+          :postLoading="postLoading"
       />
         <styled-loader  v-if="postsLoading" />
     </div>
@@ -62,13 +63,14 @@ export default {
   setup(props) {
     const searchValue = useDebouncedRef('', 400)
     const {posts, totalPages, postsLoading, selectionSort, loadMorePosts } = useFetchPosts(searchValue);
-    const { createPost, deletePost } = useUpdatePost(posts, postsLoading);
+    const { createPost, deletePost, postLoading } = useUpdatePost(posts, postsLoading);
 
     return {
       loadMorePosts,
       createPost,
       deletePost,
       selectionSort,
+      postLoading,
       searchValue,
       posts,
       totalPages,

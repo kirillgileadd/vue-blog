@@ -1,7 +1,7 @@
 import {onMounted, ref, watch} from "vue";
 import axios from "axios";
 
-export function useFetchPosts(debounceValue) {
+export function useFetchPosts(searchValue) {
     const posts = ref([])
     const postsLoading = ref(false)
     const totalPages = ref(0)
@@ -16,13 +16,17 @@ export function useFetchPosts(debounceValue) {
                 params: {
                     _limit: limit.value,
                     _page: page.value,
-                    q: debounceValue.value.trim(),
+                    q: searchValue.value.trim(),
                     _sort: selectionSort.value,
                     _order: 'asc'
                 }
             })
             totalPages.value = Math.ceil(response.headers['x-total-count'] / limit.value)
-            posts.value = response.data
+            posts.value = response.data.map(post => ({
+                ...post,
+                postLoading: false,
+                isFavourite: false,
+            }))
         } catch (e) {
             console.log(e);
         } finally {
@@ -36,7 +40,7 @@ export function useFetchPosts(debounceValue) {
                 params: {
                     _limit: limit.value,
                     _page: page.value,
-                    q: debounceValue.value.trim(),
+                    q: searchValue.value.trim(),
                     _sort: selectionSort.value,
                     _order: 'asc'
                 }
@@ -48,8 +52,14 @@ export function useFetchPosts(debounceValue) {
         }
     }
 
-    onMounted(fetching)
-    watch([selectionSort, debounceValue], fetching)
+    onMounted(() => {
+        console.log(posts.value.length);
+        if(!posts.value.length) {
+
+            fetching()
+        }
+    })
+    watch([selectionSort, searchValue], fetching)
 
     return {
         posts,

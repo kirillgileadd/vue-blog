@@ -32,6 +32,7 @@ export function useUpdatePost(posts) {
 
     return {
         createPost,
-        deletePost
+        deletePost,
+        postLoading
     }
 }

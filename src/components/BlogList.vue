@@ -8,6 +8,8 @@
         :title="post.title"
         :body="post.body"
         :id="post.id"
+        :favourite="post.isFavourite"
+        :loading="post.postLoading"
         @removePost="$emit('removePost', post)"
     />
   </div>

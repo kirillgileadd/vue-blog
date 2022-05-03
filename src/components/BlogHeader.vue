@@ -5,7 +5,6 @@
         <h3 class="header__title" @click="$router.push('/')">Vue Blog</h3>
         <div class="header__btns">
           <styled-button @click="$router.push('/about')" variant="secondary">About</styled-button>
-          <styled-button @click="$router.push('/composition')" variant="secondary">Composition API</styled-button>
         </div>
       </div>
     </div>
@@ -15,11 +14,12 @@
 <script>
 import StyledButton from "@/components/UI/StyledButton";
 import StyledInput from "@/components/UI/StyledInput";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "blog-header",
   components: {StyledInput, StyledButton},
-}
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,17 +1,18 @@
-import PostsPage from "@/components/pages/PostsPage";
+import PostsPage from "@/components/pages/PostsPage.vue";
 import {createRouter, createWebHistory} from "vue-router";
-import About from "@/components/pages/About";
-import PostDetail from "@/components/pages/PostDetail";
-import PostsPageCompositionAPI from "@/components/pages/PostsPageCompositionAPI";
+import About from "@/components/pages/About.vue";
+import PostDetail from "@/components/pages/PostDetail.vue";
+import {defineComponent} from "vue";
 
-const routes = [
+export interface IRoute {
+    path: string,
+    component: ReturnType<typeof defineComponent>
+}
+
+const routes: IRoute[] = [
     {
         path: '/',
         component: PostsPage
-    },
-    {
-        path: '/composition',
-        component: PostsPageCompositionAPI
     },
     {
         path: '/about',

@@ -7,12 +7,14 @@
   </div>
 </template>
 
-<script>
-  import BlogHeader from "@/components/BlogHeader";
+<script lang="ts">
 
-  export default {
+  import {defineComponent} from "vue";
+  import BlogHeader from "@/components/BlogHeader.vue";
+
+  export default defineComponent({
     components: {BlogHeader}
-  }
+  })
 </script>
 
 <style>

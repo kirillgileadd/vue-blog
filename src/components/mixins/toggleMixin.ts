@@ -1,4 +1,7 @@
-export default {
+import {defineComponent} from "vue";
+
+export default defineComponent({
+    emits: ['update:show'],
     props: {
         show: {
             type: Boolean,
@@ -10,4 +13,4 @@ export default {
             this.$emit('update:show', false)
         }
     }
-}
+})

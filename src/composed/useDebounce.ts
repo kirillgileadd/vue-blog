@@ -1,8 +1,8 @@
 import { ref, customRef } from 'vue'
 
-const debounce = (fn, delay = 0, immediate = false) => {
-    let timeout
-    return (...args) => {
+const debounce = (fn: Function, delay = 0, immediate:boolean = false) => {
+    let timeout: ReturnType<typeof setTimeout>
+    return (...args: any) => {
         if (immediate && !timeout) fn(...args)
         clearTimeout(timeout)
 
@@ -12,15 +12,15 @@ const debounce = (fn, delay = 0, immediate = false) => {
     }
 }
 
-const useDebouncedRef = (initialValue, delay, immediate) => {
-    const state = ref(initialValue)
+const useDebouncedRef = (initialValue: string, delay: number, immediate: boolean) => {
+    const state = ref<string>(initialValue)
     const debouncedRef = customRef((track, trigger) => ({
         get() {
             track()
             return state.value
         },
         set: debounce(
-            value => {
+            (value: string) => {
                 state.value = value
                 trigger()
             },

@@ -46,8 +46,9 @@ import {useFetchPosts} from "@/composed/useFetchPosts";
 import StyledLoader from "@/components/UI/StyledLoader.vue";
 import {useUpdatePost} from "@/composed/useUpdatePost";
 import useDebouncedRef from "@/composed/useDebounce";
-import {defineComponent} from "vue";
+import {computed, defineComponent} from "vue";
 import {IPost} from "@/models";
+import {mapGetters, useStore} from "vuex";
 
 export default defineComponent({
   name: 'posts-page-capi',
@@ -62,20 +63,14 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const store = useStore()
     const searchValue = useDebouncedRef('', 400, false)
-    const {posts, totalPages, postsLoading, selectionSort, loadMorePosts } = useFetchPosts(searchValue);
-    const { createPost, deletePost, postLoading } = useUpdatePost(posts);
+    const {posts } =   useFetchPosts(searchValue)
 
     return {
-      loadMorePosts,
-      createPost,
-      deletePost,
-      selectionSort,
-      postLoading,
+      ...useFetchPosts(searchValue),
+      ...useUpdatePost(posts.value),
       searchValue,
-      posts,
-      totalPages,
-      postsLoading,
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 import {createStore, Store} from "vuex";
-import {postModule} from "@/store/blogModule";
+import {postModule, PostModuleState} from "@/store/postModule/postModule";
 import {InjectionKey} from "vue";
 
 export interface State {

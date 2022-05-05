@@ -26,7 +26,7 @@
           :posts="posts"
           :postLoading="postLoading"
       />
-      <styled-loader  v-if="postsLoading" />
+      <styled-loader v-if="postsLoading"/>
     </div>
     <div v-if="posts.length > 0" v-intersection="loadMorePosts" ref="observer" class="observer"></div>
   </div>
@@ -42,13 +42,12 @@ import BlogHeader from "@/components/BlogHeader.vue";
 import BlogItem from "@/components/BlogItem.vue";
 import BlogList from "@/components/BlogList.vue";
 import BlogForm from "@/components/BlogForm.vue";
-import {useFetchPosts} from "@/composed/useFetchPosts";
+import {usePosts} from "@/composed/usePosts";
 import StyledLoader from "@/components/UI/StyledLoader.vue";
-import {useUpdatePost} from "@/composed/useUpdatePost";
 import useDebouncedRef from "@/composed/useDebounce";
-import {computed, defineComponent} from "vue";
+import {defineComponent} from "vue";
 import {IPost} from "@/models";
-import {mapGetters, useStore} from "vuex";
+import {useStore} from "vuex";
 
 export default defineComponent({
   name: 'posts-page-capi',
@@ -65,11 +64,9 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
     const searchValue = useDebouncedRef('', 400, false)
-    const {posts } =   useFetchPosts(searchValue)
 
     return {
-      ...useFetchPosts(searchValue),
-      ...useUpdatePost(posts.value),
+      ...usePosts(searchValue),
       searchValue,
     }
   },

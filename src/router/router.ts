@@ -1,7 +1,7 @@
-import PostsPage from "@/components/pages/PostsPage.vue";
+import PostsPage from "@/pages/PostsPage.vue";
 import {createRouter, createWebHistory, RouteRecordRaw} from "vue-router";
-import About from "@/components/pages/About.vue";
-import PostDetail from "@/components/pages/PostDetail.vue";
+import About from "@/pages/About.vue";
+import PostDetail from "@/pages/PostDetail.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {

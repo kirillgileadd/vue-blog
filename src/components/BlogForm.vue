@@ -42,6 +42,9 @@ export default {
   width: 400px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 492px) {
+    width: 260px;
+  }
   input {
     margin-bottom: 15px;
   }

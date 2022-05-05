@@ -2,7 +2,7 @@ import {onMounted, Ref, ref, watch} from "vue";
 import {IPost} from "@/models";
 import PostsService from "@/api/PostsService";
 
-export function useFetchPosts(searchValue: Ref<string>) {
+export function usePosts(searchValue: Ref<string>) {
     const posts = ref<IPost[]>([])
     const postsLoading = ref<boolean>(false)
     const totalPages = ref<number>(0)
@@ -36,6 +36,24 @@ export function useFetchPosts(searchValue: Ref<string>) {
             console.log(e);
         }
     }
+    const createPost  = async (post: IPost) => {
+        try {
+            const response = await PostsService.postPost(post)
+            posts.value = [response.data, ...posts.value]
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const deletePost = async (post: IPost) => {
+        try {
+            const response = await PostsService.deletePost(post)
+            if(response.status === 200) {
+                posts.value = posts.value.filter(item => item?.id !== post.id)
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     onMounted(fetching)
     watch([selectionSort, searchValue], fetching)
@@ -47,6 +65,8 @@ export function useFetchPosts(searchValue: Ref<string>) {
         limit,
         page,
         selectionSort,
-        loadMorePosts
+        loadMorePosts,
+        deletePost,
+        createPost,
     }
 }
